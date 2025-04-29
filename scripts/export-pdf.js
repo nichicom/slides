@@ -45,7 +45,17 @@ async function exportSlidesToPdf() {
     console.log(`🔍 処理中: ${pageName}.html`)
 
     try {
-      await execFileAsync(DECKTAPE_BIN, ['reveal', '--size', '1280x720', '--load-pause', '2000', url, outputPath])
+      await execFileAsync(DECKTAPE_BIN, [
+        'generic',
+        '--size',
+        '1280x720',
+        '--load-pause',
+        '2000',
+        '--chrome-arg',
+        '--no-sandbox',
+        url,
+        outputPath,
+      ])
 
       console.log(`✅ エクスポート完了: ${outputPath}`)
     } catch (error) {
