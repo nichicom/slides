@@ -1,0 +1,29 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+commit-msg:
+  commands:
+    "lint commit message":
+      run: bun run commitlint --edit {1}
+
+pre-commit:
+  parallel: false
+  commands:
+    biome-check:
+      glob: "*.{js,ts,jsx,tsx,html,css,json}"
+      run: |
+        # First check if there are any linting errors
+        bun run check {staged_files}
+        if [ $? -ne 0 ]; then
+          echo "Error: Biome check failed. Please run 'bun run check:fix' to fix formatting issues before committing."
+          exit 1
+        fi
+        
+        # Then run the formatter and check if any files were modified
+        bun run check:fix {staged_files}
+        if ! git diff --quiet {staged_files}; then
+          echo "Error: Biome formatting changes detected. Please run 'bun run check:fix' and stage the changes before committing."
+          exit 1
+        fi

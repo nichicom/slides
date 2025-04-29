@@ -1,0 +1,65 @@
+{
+  "cSpell.customDictionaries": {
+    "app-words": {
+      "name": "app-words",
+      "path": "${workspaceRoot}/.cspell/app-words.txt",
+      "description": "Words specific to this application",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  },
+  "cSpell.ignorePaths": [
+    "node_modules",
+    "*.lock",
+    ".vscode",
+    ".env*",
+    "firebase.config.json",
+    "renovate.json5",
+    "package.json",
+    "lefthook.yml",
+    "bootstrap.sh"
+  ],
+  "debug.openDebug": "openOnDebugBreak",
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "editor.rulers": [80],
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "firebase.json": ".firebaserc, firestore.rules, firestore.indexes.json,storage.rules, remoteconfig.template.json",
+    "package.json": "package-lock.json, yarn.lock, .npmrc, .yarnrc, .yarnrc.yml, .pnp.js, .pnp.cjs, .pnp.mjs, .yarn-integrity",
+    ".env.sample": ".env*",
+    "*.ts": "$(capture).test.ts",
+    "*.tsx": "$(capture).stories.tsx",
+    ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
+    "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",
+    "index.html": "main.js,styles.css",
+    "*.html": "$(capture).css,$(capture).md,$(capture).*.md"
+  },
+  "git.autofetch": true,
+  "git.enableSmartCommit": true
+}

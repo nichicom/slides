@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# プロジェクトルール
+
+## 技術スタック
+
+### フロントエンド基盤
+- **言語**: html + js
+- **フレームワーク**: reveal.js を使用したスライドHTML
+- **ビルドツール**: Vite
+- **パッケージマネージャー**: Bun
+
+## ディレクトリ構造
+
+```
+tomoni-admin/
+├── .cspell/         # スペルチェックファイル
+├── .cursor/         # Cursor IDE設定・ルール
+├── .vscode/         # VSCode設定
+├── docs/            # GitHub Pages 静的ファイル Viteのバンドル先
+├── public/          # 公開用
+│   └── images/      # 画像ファイル 
+├── tools/           # 開発ツール
+├── index.html       # ルートのHTMLファイル
+├── main.js          # reveal.js の初期化 すべての Reveal を使用する html で使用する JS ファイル
+├── styles.css       # すべての Reveal を使用する html で使用する CSS ファイル
+└── about.html       # index以外のHTMLファイル
+
+```
+
+## コーディング原則
+
+### 1. アーキテクチャ
+- Revealを使用したスライドHTMLで構成されている
+- index.html に各スライドのリンクを設置する
+- 各HTMLファイルは独立しており関連しない
+
+### 2. コード品質
+- Biomeによるコード整形
+
+## Git運用
+
+### コミットメッセージ
+- Conventional Commitsに準拠
+- 日本語での記述を推奨
+
+### CI/CD
+- GitHub Pageに自動デプロイ

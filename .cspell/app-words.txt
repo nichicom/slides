@@ -1,0 +1,6 @@
+firestore
+sakurai
+toronoba
+vite
+vitest
+yuki
