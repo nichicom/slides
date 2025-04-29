@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "export": "node scripts/export-pdf.js",
     "check": "biome check",
     "check:fix": "biome check --write",
     "clean": "git clean -xdf node_modules"
@@ -20,6 +21,7 @@
     "@commitlint/config-conventional": "19.8.0",
     "@commitlint/types": "19.8.0",
     "lefthook": "1.11.11",
+    "puppeteer": "24.7.2",
     "vite": "6.3.3"
   },
   "dependencies": {
