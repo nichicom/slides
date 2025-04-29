@@ -1,9 +1,11 @@
+import { execFile } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import puppeteer from 'puppeteer'
+import { promisify } from 'node:util'
 import config from '../vite.config.js'
 
+const execFileAsync = promisify(execFile)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const EXPORT_DIR = path.join(__dirname, '../exports')
@@ -12,6 +14,7 @@ if (!fs.existsSync(EXPORT_DIR)) {
 }
 
 const SERVER_URL = 'http://localhost:3000'
+const DECKTAPE_BIN = path.join(__dirname, '../node_modules/.bin/decktape')
 
 async function exportSlidesToPdf() {
   console.log('📄 PDFへのエクスポートを開始します...')
@@ -34,36 +37,23 @@ async function exportSlidesToPdf() {
     process.exit(1)
   }
 
-  const browser = await puppeteer.launch({
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  })
+  for (const file of htmlFiles) {
+    const pageName = path.basename(file, '.html')
+    const url = `${SERVER_URL}/${file}`
+    const outputPath = path.join(EXPORT_DIR, `${pageName}.pdf`)
 
-  try {
-    for (const file of htmlFiles) {
-      const pageName = path.basename(file, '.html')
-      const url = `${SERVER_URL}/${file}?print-pdf`
-      const outputPath = path.join(EXPORT_DIR, `${pageName}.pdf`)
+    console.log(`🔍 処理中: ${pageName}.html`)
 
-      console.log(`🔍 処理中: ${pageName}.html`)
-
-      const page = await browser.newPage()
-
-      await page.goto(url, { waitUntil: 'networkidle0' })
-
-      await page.pdf({
-        path: outputPath,
-        format: 'A4',
-        landscape: true,
-        printBackground: true,
-        margin: { top: 0, right: 0, bottom: 0, left: 0 },
-      })
+    try {
+      await execFileAsync(DECKTAPE_BIN, ['reveal', '--size', '1280x720', url, outputPath])
 
       console.log(`✅ エクスポート完了: ${outputPath}`)
-      await page.close()
+    } catch (error) {
+      console.error(`❌ ${pageName}.htmlのエクスポート中にエラーが発生しました:`, error.message)
+      console.error('コマンド:', error.cmd)
+      console.error('終了コード:', error.code)
+      if (error.stderr) console.error('エラー出力:', error.stderr)
     }
-  } finally {
-    await browser.close()
   }
 
   console.log('\n🎉 すべてのスライドのエクスポートが完了しました。')
