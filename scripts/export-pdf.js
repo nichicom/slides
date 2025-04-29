@@ -14,7 +14,6 @@ if (!fs.existsSync(EXPORT_DIR)) {
 }
 
 const SERVER_URL = 'http://localhost:3000'
-const DECKTAPE_CMD = 'npx decktape'
 
 async function checkServerRunning() {
   console.log('📄 PDFへのエクスポートを開始します...')
@@ -62,7 +61,7 @@ async function main() {
       console.log(`🔍 処理中: ${pageName}.html`)
 
       try {
-        const command = `${DECKTAPE_CMD} generic --size 1280x720 --load-pause 2000 --chrome-arg=--no-sandbox "${url}" "${outputPath}"`
+        const command = `bunx decktape reveal "${url}" "${outputPath}"`
         await runCommand(command)
         console.log(`✅ エクスポート完了: ${outputPath}`)
       } catch (error) {
