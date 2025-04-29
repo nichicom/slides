@@ -39,13 +39,13 @@ async function exportSlidesToPdf() {
 
   for (const file of htmlFiles) {
     const pageName = path.basename(file, '.html')
-    const url = `${SERVER_URL}/${file}`
+    const url = `${SERVER_URL}${config.base}${file}`
     const outputPath = path.join(EXPORT_DIR, `${pageName}.pdf`)
 
     console.log(`🔍 処理中: ${pageName}.html`)
 
     try {
-      await execFileAsync(DECKTAPE_BIN, ['reveal', '--size', '1280x720', url, outputPath])
+      await execFileAsync(DECKTAPE_BIN, ['reveal', '--size', '1280x720', '--load-pause', '2000', url, outputPath])
 
       console.log(`✅ エクスポート完了: ${outputPath}`)
     } catch (error) {
