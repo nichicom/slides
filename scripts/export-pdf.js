@@ -51,8 +51,7 @@ async function exportSlidesToPdf() {
         '1280x720',
         '--load-pause',
         '2000',
-        '--chrome-arg',
-        '--no-sandbox',
+        '--chrome-arg=--no-sandbox',
         url,
         outputPath,
       ])
